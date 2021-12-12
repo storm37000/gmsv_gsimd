@@ -1,4 +1,4 @@
-# gmsv_antifreeze
+# gmsv_gsimd
 [![Build status](https://ci.appveyor.com/api/projects/status/nqh6xy8et08re5ok?svg=true)](https://ci.appveyor.com/project/storm37000/gmsv-gsimd)
 
 Use SIMD functions of modern CPUs to greatly accelerate your LUA code. <br>
