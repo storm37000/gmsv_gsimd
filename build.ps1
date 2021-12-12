@@ -26,6 +26,7 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	$contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);") | Set-Content -Path './src/main.cpp'
 	sudo apt-get update
 	sudo apt-get install gcc-multilib g++-multilib -y
+	mkdir ../include
 	echo "downloading and extracting gmod headers"
 	git clone https://github.com/Facepunch/gmod-module-base.git ../gmod
 	mv ../gmod/include/GarrysMod ../include
