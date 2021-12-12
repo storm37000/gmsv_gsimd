@@ -1,11 +1,11 @@
 if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	$contentold = Get-Content -Path '.\src\main.cpp'
 	$contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);") | Set-Content -Path '.\src\main.cpp'
-    echo "downloading and extracting gmod headers"
+	echo "downloading and extracting gmod headers"
 	Invoke-WebRequest -Uri "https://github.com/Facepunch/gmod-module-base/archive/refs/heads/development.zip" -OutFile "..\gmod.zip"
 	Expand-Archive "..\gmod.zip" ..\
 	Move-Item "..\gmod-module-base-development\include\" ..\include
-    echo "downloading and extracting simdpp headers"
+	echo "downloading and extracting simdpp headers"
 	Invoke-WebRequest -Uri "https://github.com/p12tic/libsimdpp/archive/refs/heads/master.zip" -OutFile "..\simdpp.zip"
 	Expand-Archive "..\simdpp.zip" ..\
 	Move-Item "..\libsimdpp-master\simdpp" ..\include
