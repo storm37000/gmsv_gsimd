@@ -14,13 +14,13 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	Expand-Archive "premake-5.0.0-beta1-windows.zip" .\
 	./premake5.exe --os=windows vs2019
 	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32" /p:Platform="sse" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 avx128" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 avx256" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 avx512" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64 sse" /p:Platform="x64" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64 avx128" /p:Platform="x64" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64 avx256" /p:Platform="x64" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64 avx512" /p:Platform="x64" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32" /p:Platform="avx128" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32" /p:Platform="avx256" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32" /p:Platform="avx512" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64" /p:Platform="sse" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64" /p:Platform="avx128" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64" /p:Platform="avx256" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release64" /p:Platform="avx512" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 }else{
 	$contentold = Get-Content -Path './src/main.cpp'
 	$contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);") | Set-Content -Path './src/main.cpp'
