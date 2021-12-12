@@ -30,7 +30,8 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	svn checkout https://github.com/p12tic/libsimdpp/branches/master/simdpp ../include/simdpp
 	wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-linux.tar.gz
 	tar -xzf "premake-5.0.0-beta1-linux.tar.gz"
-	premake5 --os=linux gmake2
+	chmod 700 ./premake5
+	./premake5 --os=linux gmake2
 	cd ./projects/linux
 	make config=release32_sse
 	make config=release32_avx128
