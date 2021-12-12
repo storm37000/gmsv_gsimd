@@ -26,8 +26,13 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	$contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);") | Set-Content -Path './src/main.cpp'
 	sudo apt-get update
 	sudo apt-get install gcc-multilib g++-multilib -y
-	svn checkout https://github.com/Facepunch/gmod-module-base/branches/development/include/GarrysMod ../include/GarrysMod
-	svn checkout https://github.com/p12tic/libsimdpp/branches/master/simdpp ../include/simdpp
+	echo "downloading and extracting gmod headers"
+	git clone https://github.com/Facepunch/gmod-module-base.git ../gmod
+	mv -r ../gmod/include/GarrysMod ../include
+	echo "downloading and extracting simdpp headers"
+	git clone https://github.com/p12tic/libsimdpp.git ../simdpp
+	mv -r ../simdpp/simdpp ../include
+	echo "downloading and extracting premake"
 	wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-linux.tar.gz
 	tar -xzf "premake-5.0.0-beta1-linux.tar.gz"
 	chmod 700 ./premake5
