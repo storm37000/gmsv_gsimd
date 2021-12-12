@@ -13,7 +13,7 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	Invoke-WebRequest -Uri "https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip" -OutFile "premake-5.0.0-beta1-windows.zip"
 	Expand-Archive "premake-5.0.0-beta1-windows.zip" .\
 	./premake5.exe --os=windows vs2019
-	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 sse" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32" /p:Platform="sse" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 avx128" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 avx256" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 	msbuild ".\projects\windows\$env:APPVEYOR_PROJECT_NAME.sln" /property:Configuration="Release32 avx512" /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
