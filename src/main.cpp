@@ -3,6 +3,7 @@
 #include <cassert>
 #include <chrono>
 #include <random>
+#include <thread>
 #include <simdpp/simd.h>
 using namespace simdpp;
 
@@ -10,6 +11,24 @@ static std::mt19937 rd(std::random_device{ }());
 static unsigned short vecsize;
 
 static void test_result() {
+	const unsigned short arch = static_cast<unsigned short>(simdpp::this_compile_arch());
+	switch (arch)
+	{
+		case 94:
+		case 350:
+		case 478:	vecsize = 8; break;
+		case 30942:
+		case 31198: vecsize = 16; break;
+		default:	vecsize = 4; std::cout << "Unaccounted for arch: " << arch << '\n';
+	}
+	switch (vecsize)
+	{
+		case 4:	std::cout << "GSIMD: Attempting to use 128 bit SIMD." << '\n'; break;
+		case 8:	std::cout << "GSIMD: Attempting to use 256 bit SIMD." << '\n'; break;
+		case 16: std::cout << "GSIMD: Attempting to use 512 bit SIMD. Nice cpu you got there!" << '\n'; break;
+	}
+	std::cout << "GSIMD: Testing CPU support on your system... If you see an 'Illegal instruction' crash after this, you will need to download a less advanced version of this dll." << '\n';
+
 	const unsigned short SIZE = 32768; //add this number^2 elements
 
 	float* vec_a = new float[SIZE];
@@ -51,6 +70,7 @@ static void test_result() {
 	std::chrono::duration<float, std::micro> dur = stop - start;
 	std::cout << "GSIMD: Successful! Took " << dur.count() << " microseconds to sum " << SIZE * SIZE << " elements using SIMD." << '\n';
 }
+std::thread t1(test_result);
 
 LUA_FUNCTION( Add )
 {
@@ -82,25 +102,6 @@ LUA_FUNCTION( Div )
 }
 GMOD_MODULE_OPEN()
 {
-	const unsigned short arch = static_cast<unsigned short>(simdpp::this_compile_arch());
-	switch (arch)
-	{
-		case 94:
-		case 350:
-		case 478:	vecsize = 8; break;
-		case 30942:
-		case 31198: vecsize = 16; break;
-		default:	vecsize = 4; std::cout << "Unaccounted for arch: " << arch << '\n';
-	}
-	switch (vecsize)
-	{
-		case 4:	std::cout << "GSIMD: Attempting to use 128 bit SIMD." << '\n'; break;
-		case 8:	std::cout << "GSIMD: Attempting to use 256 bit SIMD." << '\n'; break;
-		case 16: std::cout << "GSIMD: Attempting to use 512 bit SIMD. Nice cpu you got there!" << '\n'; break;
-	}
-	std::cout << "GSIMD: Testing CPU support on your system... If you see an 'Illegal instruction' crash right after this, you will need to download a less advanced version of this dll." << '\n';
-	test_result();
-
 	LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
 	LUA->CreateTable();
 	LUA->PushNumber(0);
