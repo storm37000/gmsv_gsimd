@@ -1,12 +1,15 @@
 if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	$contentold = Get-Content -Path '.\src\main.cpp'
 	$contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);") | Set-Content -Path '.\src\main.cpp'
+    echo "downloading and extracting gmod headers"
 	Invoke-WebRequest -Uri "https://github.com/Facepunch/gmod-module-base/archive/refs/heads/development.zip" -OutFile "..\gmod.zip"
 	Expand-Archive "..\gmod.zip" ..\
-	Move-Item ..\gmod-module-base-development\include\GarrysMod ..\include
+	Move-Item "..\gmod-module-base-development\include\GarrysMod" ..\include
+    echo "downloading and extracting simdpp headers"
 	Invoke-WebRequest -Uri "https://github.com/p12tic/libsimdpp/archive/refs/heads/master.zip" -OutFile "..\simdpp.zip"
 	Expand-Archive "..\simdpp.zip" ..\
-	Move-Item ..\libsimdpp-master\simdpp ..\include
+	Move-Item "..\libsimdpp-master\simdpp" ..\include
+	echo "downloading and extracting premake"
 	Invoke-WebRequest -Uri "https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip" -OutFile "premake-5.0.0-beta1-windows.zip"
 	Expand-Archive "premake-5.0.0-beta1-windows.zip" .\
 	premake5.exe --os=windows vs2019
