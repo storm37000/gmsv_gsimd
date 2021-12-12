@@ -2,8 +2,8 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	$contentold = Get-Content -Path '.\src\main.cpp'
 	echo($contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);"))
 	$contentold.Replace('LUA->PushNumber(0);//replace_build_number_here_automatic!', "LUA->PushNumber($env:APPVEYOR_BUILD_NUMBER);") | Set-Content -Path '.\src\main.cpp'
-	svn checkout https://github.com/Facepunch/gmod-module-base/branches/development/include/GarrysMod ..\include\GarrysMod
-	svn checkout https://github.com/p12tic/libsimdpp/branches/master/simdpp ..\include\simdpp
+	svn checkout https://github.com/Facepunch/gmod-module-base/branches/development/include/GarrysMod ../include/GarrysMod
+	svn checkout https://github.com/p12tic/libsimdpp/branches/master/simdpp ../include/simdpp
 	Invoke-WebRequest -Uri "https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip" -OutFile "premake-5.0.0-beta1-windows.zip"
 	Expand-Archive premake-5.0.0-beta1-windows.zip ./
 	premake5.exe --os=windows vs2019
@@ -24,7 +24,7 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	svn checkout https://github.com/Facepunch/gmod-module-base/branches/development/include/GarrysMod ../include/GarrysMod
 	svn checkout https://github.com/p12tic/libsimdpp/branches/master/simdpp ../include/simdpp
 	wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-linux.tar.gz
-	tar –xzf premake-5.0.0-beta1-linux.tar.gz
+	tar -xzf "premake-5.0.0-beta1-linux.tar.gz"
 	premake5 --os=linux gmake2
 	cd ./projects/linux
 	make config=release32_sse
