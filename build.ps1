@@ -12,7 +12,7 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	echo "downloading and extracting premake"
 	Invoke-WebRequest -Uri "https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip" -OutFile "premake-5.0.0-beta1-windows.zip"
 	Expand-Archive "premake-5.0.0-beta1-windows.zip" .\
-	premake5.exe --os=windows vs2019
+	./premake5.exe --os=windows vs2019
 	msbuild ".\projects\windows\gmsv_antifreeze.sln" /property:Configuration=release32_sse /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 	msbuild ".\projects\windows\gmsv_antifreeze.sln" /property:Configuration=release32_avx128 /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 	msbuild ".\projects\windows\gmsv_antifreeze.sln" /property:Configuration=release32_avx256 /p:Platform="Win32" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
