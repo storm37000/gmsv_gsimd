@@ -28,10 +28,10 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	sudo apt-get install gcc-multilib g++-multilib -y
 	echo "downloading and extracting gmod headers"
 	git clone https://github.com/Facepunch/gmod-module-base.git ../gmod
-	mv -r ../gmod/include/GarrysMod ../include
+	mv ../gmod/include/GarrysMod ../include
 	echo "downloading and extracting simdpp headers"
 	git clone https://github.com/p12tic/libsimdpp.git ../simdpp
-	mv -r ../simdpp/simdpp ../include
+	mv ../simdpp/simdpp ../include
 	echo "downloading and extracting premake"
 	wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-linux.tar.gz
 	tar -xzf "premake-5.0.0-beta1-linux.tar.gz"
