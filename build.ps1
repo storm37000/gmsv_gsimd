@@ -28,8 +28,7 @@ if($env:APPVEYOR_BUILD_WORKER_IMAGE -eq "Visual Studio 2019"){
 	sudo apt-get install gcc-multilib g++-multilib -y
 	mkdir ../include
 	echo "downloading and extracting gmod headers"
-	git clone https://github.com/Facepunch/gmod-module-base.git ../gmod
-	mv ../gmod/include/GarrysMod ../include
+	svn checkout https://github.com/Facepunch/gmod-module-base/branches/development/include ../include/
 	echo "downloading and extracting simdpp headers"
 	git clone https://github.com/p12tic/libsimdpp.git ../simdpp
 	mv ../simdpp/simdpp ../include
