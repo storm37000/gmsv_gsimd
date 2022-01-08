@@ -10,7 +10,7 @@ static std::mt19937 rd(std::random_device{ }());
 static unsigned short vecsize;
 
 static void test_result() {
-	const unsigned short SIZE = 32768; //add this number^2 elements
+	const unsigned short SIZE = 32768; //add this number^2 elements of random numbers
 
 	float* vec_a = new float[SIZE];
 	float* vec_b = new float[SIZE];
@@ -98,7 +98,7 @@ GMOD_MODULE_OPEN()
 		case 8:	std::cout << "GSIMD: Attempting to use 256 bit SIMD." << '\n'; break;
 		case 16: std::cout << "GSIMD: Attempting to use 512 bit SIMD. Nice cpu you got there!" << '\n'; break;
 	}
-	std::cout << "GSIMD: Testing CPU support on your system... If you see an 'Illegal instruction' crash right after this, you will need to download a less advanced version of this dll." << '\n';
+	std::cout << "GSIMD: Testing CPU support on your system... If you see an 'Illegal instruction' crash after this, you will need to download a less advanced version of this dll." << '\n';
 	test_result();
 
 	LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
