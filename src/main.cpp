@@ -49,54 +49,59 @@ static void test_result() {
 	}
 
 	std::chrono::duration<float, std::micro> dur = stop - start;
-	std::cout << "GSIMD: Successful! Took " << dur.count() << " microseconds to sum " << SIZE * SIZE << " elements using SIMD." << '\n';
+	std::cout << "GSIMD: Successful! Took " << dur.count() << " microseconds to sum " << SIZE * SIZE << " elements using SIMD." << std::endl;
 }
 
 LUA_FUNCTION( Add )
 {
-	if (LUA->IsType(-1,8)) {
-		std::cout << "is table" << '\n';
+	if (LUA->IsType(0,8)) {
+		std::cout << "is table" << std::endl;
 	}
+	LUA->PushNil();
 	return 0;
 }
 LUA_FUNCTION( Sub )
 {
-	if (LUA->IsType(-1, 8)) {
-		std::cout << "is table" << '\n';
+	if (LUA->IsType(0, 8)) {
+		std::cout << "is table" << std::endl;
 	}
+	LUA->PushNil();
 	return 0;
 }
 LUA_FUNCTION( Mul )
 {
-	if (LUA->IsType(-1, 8)) {
-		std::cout << "is table" << '\n';
+	if (LUA->IsType(0, 8)) {
+		std::cout << "is table" << std::endl;
 	}
+	LUA->PushNil();
 	return 0;
 }
 LUA_FUNCTION( Div )
 {
-	if (LUA->IsType(-1, 8)) {
-		std::cout << "is table" << '\n';
+	if (LUA->IsType(0, 8)) {
+		std::cout << "is table" << std::endl;
 	}
+	LUA->PushNil();
 	return 0;
 }
 GMOD_MODULE_OPEN()
 {
+	std::cout << std::endl;
 	const unsigned short arch = static_cast<unsigned short>(simdpp::this_compile_arch());
 	switch (arch)
 	{
 		case 126:	vecsize = 4; break;
 		case 510:	vecsize = 8; break;
 		case 31230: vecsize = 16; break;
-		default:	std::cout << "Unaccounted for arch: " << arch << '\n';
+		default:	std::cout << "Unaccounted for arch: " << arch << std::endl;
 	}
 	switch (vecsize)
 	{
-		case 4:	std::cout << "GSIMD: Attempting to use 128 bit SIMD." << '\n'; break;
-		case 8:	std::cout << "GSIMD: Attempting to use 256 bit SIMD." << '\n'; break;
-		case 16: std::cout << "GSIMD: Attempting to use 512 bit SIMD. Nice cpu you got there!" << '\n'; break;
+		case 4:	std::cout << "GSIMD: Attempting to use 128 bit SIMD." << std::endl; break;
+		case 8:	std::cout << "GSIMD: Attempting to use 256 bit SIMD." << std::endl; break;
+		case 16: std::cout << "GSIMD: Attempting to use 512 bit SIMD. Nice cpu you got there!" << std::endl; break;
 	}
-	std::cout << "GSIMD: Testing CPU support on your system... If you see an 'Illegal instruction' crash after this, you will need to download a less advanced version of this dll." << '\n';
+	std::cout << "GSIMD: Testing CPU support on your system... If you see an 'Illegal instruction' crash after this, you will need to download a less advanced version of this dll." << std::endl;
 	test_result();
 
 	LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
