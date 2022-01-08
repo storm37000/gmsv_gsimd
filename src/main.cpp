@@ -54,35 +54,47 @@ static void test_result() {
 
 LUA_FUNCTION( Add )
 {
-	if (LUA->IsType(0,8)) {
+	if (LUA->Top() < 1) {
+		LUA->ArgError(1, "2 tables of equal size expected, got nil");
+	}
+	if (LUA->IsType(1, GarrysMod::Lua::Type::Table)) {
 		std::cout << "is table" << std::endl;
 	}
 	LUA->PushNil();
-	return 0;
+	return 1;
 }
 LUA_FUNCTION( Sub )
 {
-	if (LUA->IsType(0, 8)) {
+	if (LUA->Top() < 1) {
+		LUA->ArgError(1, "2 tables of equal size expected, got nil");
+	}
+	if (LUA->IsType(1, GarrysMod::Lua::Type::Table)) {
 		std::cout << "is table" << std::endl;
 	}
 	LUA->PushNil();
-	return 0;
+	return 1;
 }
 LUA_FUNCTION( Mul )
 {
-	if (LUA->IsType(0, 8)) {
+	if (LUA->Top() < 1) {
+		LUA->ArgError(1, "2 tables of equal size expected, got nil");
+	}
+	if (LUA->IsType(1, GarrysMod::Lua::Type::Table)) {
 		std::cout << "is table" << std::endl;
 	}
 	LUA->PushNil();
-	return 0;
+	return 1;
 }
 LUA_FUNCTION( Div )
 {
-	if (LUA->IsType(0, 8)) {
+	if (LUA->Top() < 1) {
+		LUA->ArgError(1, "2 tables of equal size expected, got nil");
+	}
+	if (LUA->IsType(1, GarrysMod::Lua::Type::Table)) {
 		std::cout << "is table" << std::endl;
 	}
 	LUA->PushNil();
-	return 0;
+	return 1;
 }
 GMOD_MODULE_OPEN()
 {
