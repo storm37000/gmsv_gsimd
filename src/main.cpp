@@ -7,7 +7,7 @@
 using namespace simdpp;
 
 static std::mt19937 rd(std::random_device{ }());
-static unsigned short vecsize;
+static unsigned short vecsize = 4;
 
 static void test_result() {
 	const unsigned short SIZE = 32768; //add this number^2 elements of random numbers
@@ -85,12 +85,10 @@ GMOD_MODULE_OPEN()
 	const unsigned short arch = static_cast<unsigned short>(simdpp::this_compile_arch());
 	switch (arch)
 	{
-		case 94:
-		case 350:
-		case 478:	vecsize = 8; break;
-		case 30942:
-		case 31198: vecsize = 16; break;
-		default:	vecsize = 4; std::cout << "Unaccounted for arch: " << arch << '\n';
+		case 126:	vecsize = 4; break;
+		case 510:	vecsize = 8; break;
+		case 31230: vecsize = 16; break;
+		default:	std::cout << "Unaccounted for arch: " << arch << '\n';
 	}
 	switch (vecsize)
 	{
